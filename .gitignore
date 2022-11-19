@@ -49,3 +49,6 @@ firebase_app_id_file.json
 firebase_options.dart
 firebase_app_id_file.json
 GoogleService-info.plist
+
+dev
+dev/
