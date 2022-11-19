@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_study_app/config/themes/app_colors.dart';
+import 'package:flutter_study_app/screens/home/home_screen.dart';
 import 'package:flutter_study_app/widgets/app_cricle_button_widget.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +11,11 @@ class IntroductionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+          gradient: mainGradient(
+            context,
+          ),
+        ),
         alignment: Alignment.center,
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -16,24 +23,28 @@ class IntroductionScreen extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
+            children: [
+              const Icon(
                 Icons.star,
                 size: 65.0,
-                color: Colors.amber,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
-              Text(
+              const Text(
                 "This is a study app. You can use it as you want, if you understand how it this works. You would be able to scale it",
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  color: onSurfaceTextColor,
+                ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               AppCricleButtonWidget(
-                child: Icon(
+                onTap: () => Get.toNamed("/home"),
+                child: const Icon(
                   Icons.arrow_forward,
                   size: 35.0,
                 ),

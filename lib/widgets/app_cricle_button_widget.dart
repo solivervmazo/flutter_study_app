@@ -16,9 +16,12 @@ class AppCricleButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      type: MaterialType.transparency,
+      clipBehavior: Clip.hardEdge,
       shape: const CircleBorder(),
+      color: color,
       child: InkWell(
-        onTap: () => onTap,
+        onTap: onTap,
         child: child,
       ),
     );
