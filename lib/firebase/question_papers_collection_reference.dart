@@ -7,7 +7,7 @@ class QuestionPapersCollectionReference {
 
   // final String docId;
 
-  static CollectionReference questionPaperCollection() {
+  static CollectionReference<Map<String, dynamic>> questionPaperCollection() {
     return _fireStore.collection("questionPaper");
   }
 

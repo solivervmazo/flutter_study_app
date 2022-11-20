@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study_app/config/themes/app_colors.dart';
-import 'package:flutter_study_app/screens/home/home_screen.dart';
-import 'package:flutter_study_app/widgets/app_cricle_button_widget.dart';
+import 'package:flutter_study_app/widgets/app_circle_button_widget.dart';
 import 'package:get/get.dart';
 
 class IntroductionScreen extends StatelessWidget {
@@ -12,9 +11,7 @@ class IntroductionScreen extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: mainGradient(
-            context,
-          ),
+          gradient: mainGradient(),
         ),
         alignment: Alignment.center,
         child: Padding(
@@ -42,7 +39,7 @@ class IntroductionScreen extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
-              AppCricleButtonWidget(
+              AppCircleButtonWidget(
                 onTap: () => Get.toNamed("/home"),
                 child: const Icon(
                   Icons.arrow_forward,

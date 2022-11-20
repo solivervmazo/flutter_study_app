@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_study_app/controllers/app_zoom_controller.dart';
 import 'package:flutter_study_app/controllers/question_paper/question_paper_controller.dart';
 import 'package:flutter_study_app/screens/home/home_screen.dart';
 import 'package:flutter_study_app/screens/introduction/introduction_screen.dart';
@@ -9,7 +11,9 @@ class AppRoutes {
   static List<GetPage> routes() => [
         GetPage(
           name: "/",
-          page: () => const SplashScreen(),
+          page: () => const SafeArea(
+            child: SplashScreen(),
+          ),
         ),
         GetPage(
           name: "/introduction",
@@ -17,11 +21,14 @@ class AppRoutes {
         ),
         GetPage(
           name: "/home",
-          page: () => const HomeScreen(),
+          page: () => const SafeArea(
+            child: HomeScreen(),
+          ),
           binding: BindingsBuilder(
             () {
               Get.put(FirebaseStorageService());
               Get.put(QuestionPaperController());
+              Get.put(AppZoomController());
             },
           ),
         ),
