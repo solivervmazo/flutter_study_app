@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+final CollectionReference<Map<String, dynamic>> userRF =
+    _fireStore.collection("users");
 
 class QuestionPapersCollectionReference {
   // QuestionPapersCollectionReference();

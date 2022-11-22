@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_study_app/controllers/auth_controller.dart';
 import 'package:flutter_study_app/firebase/question_papers_collection_reference.dart';
 import 'package:flutter_study_app/models/question_paper_model.dart';
 import 'package:flutter_study_app/services/firebase_storage_service.dart';
@@ -41,6 +42,23 @@ class QuestionPaperController extends GetxController {
       allPapers.assignAll(paperList);
     } catch (e) {
       print(e);
+    }
+  }
+
+  navigateToQuestions({
+    required QuestionPaperModel paper,
+    bool tryAgain = false,
+  }) {
+    AuthController authController = Get.find();
+    if (authController.isLoggedIn()) {
+      if (tryAgain) {
+        Get.back();
+        // Get.offNamed(page)
+      } else {
+        // Get.toNamed(page)
+      }
+    } else {
+      authController.showLoginAlertDialog();
     }
   }
 }

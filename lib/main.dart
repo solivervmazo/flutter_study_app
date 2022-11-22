@@ -13,7 +13,7 @@ void main() async {
   );
   InitialBindings().dependencies();
   runApp(
-    MyApp(),
+    const MyApp(),
   );
 }
 
