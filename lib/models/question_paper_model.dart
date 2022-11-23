@@ -77,6 +77,7 @@ class Questions {
   String question;
   List<Answers>? answers;
   String? correctanswer;
+  String? selectedAnswer;
 
   Questions({
     required this.id,
@@ -94,6 +95,12 @@ class Questions {
                 .toList()
             : null,
         correctanswer = json['correct_answer'];
+
+  Questions.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot)
+      : id = snapshot['id'].toString(),
+        question = snapshot['question'].toString(),
+        answers = [],
+        correctanswer = snapshot['correct_answer'].toString();
 
   Map<String, dynamic> toJson({List<String> remove = const []}) {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -123,6 +130,10 @@ class Answers {
   Answers.fromJson(Map<String, dynamic> json)
       : identifier = json["identifier"] as String,
         answer = json["answer"] as String;
+
+  Answers.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot)
+      : identifier = snapshot['identifier'].toString(),
+        answer = snapshot['answer'].toString();
 
   Map<String, dynamic> toJson({List<String> remove = const []}) {
     final Map<String, dynamic> data = <String, dynamic>{};

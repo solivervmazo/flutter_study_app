@@ -86,7 +86,7 @@ class MenuScreen extends GetView<AppZoomController> {
                       ? DrawerButtonWidget(
                           onPressed: () async {
                             await authController.logout();
-                            Get.offAllNamed("/signin");
+                            Get.offAllNamed("/home");
                           },
                           icon: Icons.exit_to_app,
                           label: "logout",

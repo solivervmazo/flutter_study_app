@@ -7,10 +7,12 @@ class ContentAreaWidget extends StatelessWidget {
     super.key,
     this.addPadding = false,
     required this.child,
+    this.color,
   });
 
   final bool addPadding;
   final Widget child;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class ContentAreaWidget extends StatelessWidget {
       type: MaterialType.transparency,
       child: Ink(
         decoration: BoxDecoration(
-          color: customScaffoldColor(context),
+          color: color ?? customScaffoldColor(context),
         ),
         padding: addPadding
             ? EdgeInsets.only(

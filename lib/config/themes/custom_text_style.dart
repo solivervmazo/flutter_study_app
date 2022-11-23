@@ -10,10 +10,13 @@ TextStyle cardTitle(context) => TextStyle(
       fontSize: 18.0,
       fontWeight: FontWeight.bold,
     );
+const TextStyle questionText = TextStyle(
+  fontSize: 16.0,
+  fontWeight: FontWeight.bold,
+);
 const TextStyle detailText = TextStyle(
   fontSize: 12.0,
 );
-
 const TextStyle headerText = TextStyle(
   fontSize: 22.0,
   fontWeight: FontWeight.w700,

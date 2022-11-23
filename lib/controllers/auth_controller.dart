@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class AuthController extends GetxController {
   late FirebaseAuth _firebaseAuth;
   final Rxn<User> _user = Rxn<User>();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   late Stream<User?> _authStateChanges;
   @override
   void onReady() {
@@ -32,9 +33,8 @@ class AuthController extends GetxController {
   }
 
   Future<void> signInWithGoogle() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
     try {
-      GoogleSignInAccount? account = await googleSignIn.signIn();
+      GoogleSignInAccount? account = await _googleSignIn.signIn();
       if (account != null) {
         final authAccount = await account.authentication;
         final credential = GoogleAuthProvider.credential(
@@ -82,6 +82,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> logout() async {
+    await _googleSignIn.disconnect();
     await _firebaseAuth.signOut();
   }
 }

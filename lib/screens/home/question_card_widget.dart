@@ -25,6 +25,7 @@ class QuestionCardWidget extends GetView<QuestionPaperController> {
         onTap: () {
           controller.navigateToQuestions(
             paper: question,
+            tryAgain: false,
           );
         },
         child: Padding(

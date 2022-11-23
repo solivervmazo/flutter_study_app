@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study_app/config/themes/app_colors.dart';
 import 'package:flutter_study_app/config/themes/app_icons.dart';
 import 'package:flutter_study_app/config/themes/custom_text_style.dart';
 import 'package:flutter_study_app/config/themes/ui_parameters.dart';
 import 'package:flutter_study_app/controllers/app_zoom_controller.dart';
+import 'package:flutter_study_app/controllers/auth_controller.dart';
 import 'package:flutter_study_app/controllers/question_paper/question_paper_controller.dart';
 import 'package:flutter_study_app/screens/home/menu_screen.dart';
 import 'package:flutter_study_app/screens/home/question_card_widget.dart';
@@ -19,7 +21,7 @@ class HomeScreen extends GetView<AppZoomController> {
   @override
   Widget build(BuildContext context) {
     QuestionPaperController questionPaperController = Get.find();
-
+    AuthController authController = Get.find();
     return Scaffold(
       body: GetBuilder<AppZoomController>(
         builder: (controller) => Container(
@@ -64,12 +66,40 @@ class HomeScreen extends GetView<AppZoomController> {
                               const Icon(
                                 AppIcons.peace,
                               ),
-                              Text(
-                                "data",
-                                style: detailText.copyWith(
-                                  color: onSurfaceTextColor,
-                                ),
+                              const SizedBox(
+                                width: 10.0,
                               ),
+                              authController.isLoggedIn()
+                                  ? Text(
+                                      "Hello ${authController.getUser()!.displayName!}",
+                                      style: const TextStyle(
+                                        color: onSurfaceTextColor,
+                                      ),
+                                    )
+                                  : Text.rich(
+                                      TextSpan(
+                                        text: "To get started ",
+                                        style: const TextStyle(
+                                          color: onSurfaceTextColor,
+                                          fontSize: 14.0,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                Get.toNamed("/signin");
+                                              },
+                                            text: "Sign in",
+                                            style: const TextStyle(
+                                              color: onSurfaceTextColor,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              fontSize: 14.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                             ],
                           ),
                         ),

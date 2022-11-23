@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_study_app/controllers/app_zoom_controller.dart';
 import 'package:flutter_study_app/controllers/question_paper/question_paper_controller.dart';
+import 'package:flutter_study_app/controllers/question_paper/questions_controller.dart';
 import 'package:flutter_study_app/screens/home/home_screen.dart';
 import 'package:flutter_study_app/screens/introduction/introduction_screen.dart';
+import 'package:flutter_study_app/screens/question/questions_screen.dart';
 import 'package:flutter_study_app/screens/signin_screen.dart';
 import 'package:flutter_study_app/screens/splash/splash_screen.dart';
 import 'package:flutter_study_app/services/firebase_storage_service.dart';
@@ -35,7 +37,18 @@ class AppRoutes {
         ),
         GetPage(
           name: "/signin",
-          page: () => const SigninScreen(),
+          page: () => const SafeArea(
+            child: SigninScreen(),
+          ),
+        ),
+        GetPage(
+          name: "/${QuestionsScreen.routeName}",
+          page: () => const SafeArea(
+            child: QuestionsScreen(),
+          ),
+          binding: BindingsBuilder(() {
+            Get.put(QuestionsController());
+          }),
         ),
       ];
 }
