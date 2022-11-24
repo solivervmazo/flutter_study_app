@@ -137,7 +137,10 @@ class QuestionCardWidget extends GetView<QuestionPaperController> {
                           cardBorderRadius,
                         ),
                       ),
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).primaryColor.withOpacity(
+                          controller.isAttempted(question.attempts)
+                              ? 1.0
+                              : 0.5),
                     ),
                     child: const Icon(
                       AppIcons.trophyOutline,

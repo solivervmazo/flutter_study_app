@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study_app/config/themes/app_colors.dart';
-import 'package:get/get.dart';
 
 class BackgroundDecorationWidget extends StatelessWidget {
   const BackgroundDecorationWidget({
     super.key,
     required this.child,
-    this.showGradient = false,
+    this.showGradient = true,
   });
 
   final Widget child;
@@ -16,21 +15,23 @@ class BackgroundDecorationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(
+        Positioned.fill(
           child: Container(
-            width: Get.width,
-            height: Get.height,
+            // width: Get.width,
+            // height: Get.height,
             decoration: BoxDecoration(
               color: showGradient ? null : Theme.of(context).primaryColor,
               gradient: showGradient ? mainGradient() : null,
             ),
-            child: CustomPaint(
-              painter: BackGroundPainter(),
-            ),
+            // child: CustomPaint(
+            //   painter: BackGroundPainter(),
+            // ),
           ),
         ),
-        Positioned(
-          child: child,
+        Positioned.fill(
+          child: SafeArea(
+            child: child,
+          ),
         ),
       ],
     );

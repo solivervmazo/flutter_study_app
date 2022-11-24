@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_study_app/config/themes/app_colors.dart';
+import 'package:flutter_study_app/config/themes/app_icons.dart';
 import 'package:flutter_study_app/config/themes/custom_text_style.dart';
 import 'package:flutter_study_app/config/themes/ui_parameters.dart';
-import 'package:flutter_study_app/controllers/question_paper/questions_controller.dart';
+import 'package:flutter_study_app/controllers/question_paper/quiz_controller.dart';
 import 'package:flutter_study_app/firebase/firebase_loading_status.dart';
 import 'package:flutter_study_app/widgets/answer_card_widget.dart';
+import 'package:flutter_study_app/widgets/app_app_bar.dart';
 import 'package:flutter_study_app/widgets/background_decoration_widget.dart';
 import 'package:flutter_study_app/widgets/content_area_widget.dart';
 import 'package:flutter_study_app/widgets/main_button_widget.dart';
 import 'package:flutter_study_app/widgets/question_placeholder_widget.dart';
 import 'package:get/get.dart';
 
-class QuestionsScreen extends GetView<QuestionsController> {
+class QuestionsScreen extends GetView<QuizController> {
   static const String routeName = "question_screen";
 
   const QuestionsScreen({super.key});
@@ -19,19 +21,46 @@ class QuestionsScreen extends GetView<QuestionsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppAppBar(
+        leading: Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 8.0,
+            vertical: 4.0,
+          ),
+          decoration: const ShapeDecoration(
+            shape: StadiumBorder(
+              side: BorderSide(
+                color: onSurfaceTextColor,
+                width: 2.0,
+              ),
+            ),
+          ),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.hourglass_top_sharp,
+              ),
+              Obx(
+                () => Text(
+                  controller.time.value,
+                  style: appBarText.copyWith(fontSize: 14.0),
+                ),
+              ),
+            ],
+          ),
+        ),
+        titleWidget: Obx(
+          () => Text(
+            "${controller.questionIdex.value + 1} of ${controller.allQuestions.length} questions",
+            style: appBarText,
+          ),
+        ),
+      ),
       body: BackgroundDecorationWidget(
         child: Obx(
           () => Column(
-            // mainAxisSize: MainAxisSize.max
             children: [
-              //TODO
-              SizedBox(
-                height: 70.0,
-                child: Center(
-                  child: Text(
-                      "${controller.questionIdex.value + 1} of ${controller.allQuestions.length} questions"),
-                ),
-              ),
               if (controller.loadingStatus.value ==
                   FirebaseLoadingStatus.loading)
                 const Expanded(
@@ -55,9 +84,7 @@ class QuestionsScreen extends GetView<QuestionsController> {
                             controller.currentQuestion.value!.question,
                             style: questionText,
                           ),
-                          GetBuilder<QuestionsController>(
-                            assignId: true,
-                            id: "answers_list",
+                          GetBuilder<QuizController>(
                             builder: (controller) {
                               return ListView.separated(
                                 shrinkWrap: true,
@@ -76,6 +103,11 @@ class QuestionsScreen extends GetView<QuestionsController> {
                                     isSelected: answer.identifier ==
                                         controller.currentQuestion.value!
                                             .selectedAnswer,
+                                    submitted: controller.submitted.value,
+                                    isCorrect: controller.currentQuestion.value!
+                                            .correctanswer!
+                                            .toLowerCase() ==
+                                        answer.identifier.toLowerCase(),
                                   );
                                 },
                                 separatorBuilder: (_, index) {
@@ -133,10 +165,10 @@ class QuestionsScreen extends GetView<QuestionsController> {
                             child: controller.isLastQuestion
                                 ? MainButtonWidget(
                                     onTap: () {
-                                      controller.nextQuestion();
+                                      controller.goToOverview();
                                     },
                                     left: Text(
-                                      "Submit",
+                                      "Complete",
                                       style: TextStyle(
                                         color: Get.isDarkMode
                                             ? onSurfaceTextColor
@@ -149,16 +181,52 @@ class QuestionsScreen extends GetView<QuestionsController> {
                                     onTap: () {
                                       controller.nextQuestion();
                                     },
-                                    left: Text(
-                                      "Next",
-                                      style: TextStyle(
-                                        color: Get.isDarkMode
-                                            ? onSurfaceTextColor
-                                            : Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.w800,
+                                    left: Obx(
+                                      () => Text(
+                                        controller.currentQuestion.value!
+                                                    .selectedAnswer !=
+                                                null
+                                            ? "Next"
+                                            : (controller.submitted.value
+                                                ? "Next"
+                                                : "Skip"),
+                                        style: TextStyle(
+                                          color: Get.isDarkMode
+                                              ? onSurfaceTextColor
+                                              : Theme.of(context).primaryColor,
+                                          fontWeight: FontWeight.w800,
+                                        ),
                                       ),
                                     ),
                                   ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Obx(
+                        () => Visibility(
+                          visible: controller.loadingStatus.value ==
+                              FirebaseLoadingStatus.completed,
+                          child: SizedBox(
+                            width: 55.0,
+                            height: 55.0,
+                            child: MainButtonWidget(
+                              onTap: () {
+                                controller.goToOverview();
+                              },
+                              right: Transform.translate(
+                                offset: const Offset(
+                                  0.0,
+                                  0.0,
+                                ),
+                                child: Icon(
+                                  AppIcons.menuRight,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),

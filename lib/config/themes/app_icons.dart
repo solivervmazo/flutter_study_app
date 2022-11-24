@@ -16,4 +16,9 @@ class AppIcons {
     0xe806,
     fontFamily: fontFamily,
   );
+
+  static const IconData menuRight = IconData(
+    0xe804,
+    fontFamily: fontFamily,
+  );
 }

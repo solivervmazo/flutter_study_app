@@ -7,7 +7,7 @@ class AppCircleButtonWidget extends StatelessWidget {
     this.color,
     this.width = 60.0,
     this.onTap,
-    this.circle = true,
+    this.circle = false,
   });
   final Widget child;
   final Color? color;

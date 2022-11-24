@@ -8,6 +8,7 @@ class QuestionPaperModel {
   int timeSeconds;
   List<Questions>? questions;
   int questionsCount;
+  List? attempts;
 
   QuestionPaperModel({
     required this.id,
@@ -17,6 +18,7 @@ class QuestionPaperModel {
     required this.timeSeconds,
     required this.questions,
     required this.questionsCount,
+    required this.attempts,
   });
 
   QuestionPaperModel.fromJson(Map<String, dynamic> json)
@@ -26,6 +28,9 @@ class QuestionPaperModel {
         description = json['Description'].toString(),
         timeSeconds = json['time_seconds'] as int,
         questionsCount = 0,
+        attempts = json["attempts"] != null
+            ? json["attempts"] as List<dynamic>
+            : <dynamic>[],
         questions = json["questions"] != null
             ? (json["questions"] as List)
                 .map((e) => Questions.fromJson(e as Map<String, dynamic>))
@@ -39,6 +44,9 @@ class QuestionPaperModel {
         imageUrl = snapshot['image_url'].toString(),
         description = snapshot['Description'].toString(),
         timeSeconds = snapshot['time_seconds'] as int,
+        attempts = snapshot["attempts"] != null
+            ? snapshot["attempts"] as List<dynamic>
+            : <dynamic>[],
         questionsCount = snapshot['questions_count'] as int;
 
   String timeInMinutes() => "${(timeSeconds / 60).ceil()} mins";
@@ -66,6 +74,10 @@ class QuestionPaperModel {
     }
     if (!remove.contains("questions")) {
       data['questions'] = questionsToList;
+    }
+
+    if (!remove.contains("attempts")) {
+      data['attempts'] = attempts;
     }
 
     return data;

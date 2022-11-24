@@ -22,3 +22,9 @@ const TextStyle headerText = TextStyle(
   fontWeight: FontWeight.w700,
   color: onSurfaceTextColor,
 );
+
+const TextStyle appBarText = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 16.0,
+  color: onSurfaceTextColor,
+);

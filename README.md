@@ -17,7 +17,10 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## Credits
+
 Big thanks to
     [dbestech](https://www.youtube.com/@dbestech)
-Tutorial link
-    [2022 Flutter Firebase Master Class Tutorial Complete App | Backend Data Storage](https://www.youtube.com/watch?v=ZSVnIphlGKI)
+
+Tutorial link #1 [2022 Flutter Firebase Master Class Tutorial Complete App | Backend Data Storage](https://www.youtube.com/watch?v=ZSVnIphlGKI)
+
+Tutorial link #2 [Flutter Educational App | Exam | Study | App With Backend Tutorial](https://www.youtube.com/watch?v=KQcjvDBLcSs)

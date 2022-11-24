@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_study_app/controllers/app_zoom_controller.dart';
+import 'package:flutter_study_app/controllers/question_paper/data_uploader.dart';
 import 'package:flutter_study_app/controllers/question_paper/question_paper_controller.dart';
-import 'package:flutter_study_app/controllers/question_paper/questions_controller.dart';
+import 'package:flutter_study_app/controllers/question_paper/quiz_controller.dart';
 import 'package:flutter_study_app/screens/home/home_screen.dart';
 import 'package:flutter_study_app/screens/introduction/introduction_screen.dart';
+import 'package:flutter_study_app/screens/question/questions_complete_screen.dart';
 import 'package:flutter_study_app/screens/question/questions_screen.dart';
 import 'package:flutter_study_app/screens/signin_screen.dart';
 import 'package:flutter_study_app/screens/splash/splash_screen.dart';
@@ -29,6 +31,7 @@ class AppRoutes {
           ),
           binding: BindingsBuilder(
             () {
+              // Get.put(DataUploader());
               Get.put(FirebaseStorageService());
               Get.put(QuestionPaperController());
               Get.put(AppZoomController());
@@ -47,7 +50,19 @@ class AppRoutes {
             child: QuestionsScreen(),
           ),
           binding: BindingsBuilder(() {
-            Get.put(QuestionsController());
+            Get.put<QuizController>(QuizController());
+          }),
+        ),
+        GetPage(
+          name: "/${QuestionsCompleteScreen.routeName}",
+          page: () => const SafeArea(
+            child: QuestionsCompleteScreen(),
+          ),
+          binding: BindingsBuilder(() {
+            Get.put<QuizController>(
+              QuizController(),
+            );
+            Get.put<QuestionPaperController>(QuestionPaperController());
           }),
         ),
       ];
